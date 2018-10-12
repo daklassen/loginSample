@@ -1,0 +1,20 @@
+<section class="hero is-fullheight is-light">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered is-vcentered">
+        <div class="column is-5">
+          <figure class="image">
+            <img class="is-rounded"
+                 src="assets/images/testImage1.png">
+          </figure>
+        </div>
+        <div class="column is-1"></div>
+        <div class="column is-4">
+          <app-login-form (submittedLogin)="login($event)"
+                          [loginInProgress]="loginInProgress"
+                          [showLoginError]="showLoginError"></app-login-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

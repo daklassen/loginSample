@@ -1,0 +1,20 @@
+<section class="hero is-fullheight is-light">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered is-vcentered">
+        <div class="column is-5">
+          <figure class="image">
+            <img class="is-rounded"
+                 src="assets/images/testImage1.png">
+          </figure>
+          <button *ngIf="!logoutInProgress"
+                  (click)="logout()"
+                  class="button is-large is-primary">Logout</button>
+          <a *ngIf="logoutInProgress"
+             [ngClass]="{'is-loading': logoutInProgress}"
+             class="button is-large is-primary">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
