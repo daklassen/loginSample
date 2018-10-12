@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { LoginValue } from '../model/login-value';
+import { LoginValue } from '../../../models/login-value';
 
 @Component({
   selector: 'app-login-form',

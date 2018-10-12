@@ -6,6 +6,7 @@
 
   <!-- Login Error Message Box -->
   <div *ngIf="showLoginError"
+       [@fadeInAndOut]
        class="field margin-bottom">
     <div class="notification is-danger">
       Email oder Password ist ungültig.
