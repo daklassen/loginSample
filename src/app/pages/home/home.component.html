@@ -1,18 +1,24 @@
-<section class="hero is-fullheight is-light">
+<section class="hero is-medium is-primary">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-centered is-vcentered">
         <div class="column is-5">
           <figure class="image">
             <img class="is-rounded"
-                 src="assets/images/testImage1.png">
+                 src="assets/images/testImage2.png">
           </figure>
-          <button *ngIf="!logoutInProgress"
-                  (click)="logout()"
-                  class="button is-large is-primary">Logout</button>
-          <a *ngIf="logoutInProgress"
-             [ngClass]="{'is-loading': logoutInProgress}"
-             class="button is-large is-primary">Login</a>
+        </div>
+        <div class="column is-2"></div>
+        <div class="column is-5">
+          <h1 class="title">
+            {{ currentUser.firstName }} {{ currentUser.lastName }}
+          </h1>
+          <h2 class="subtitle">
+            Hallo, mein Name ist {{ currentUser.firstName }}.
+          </h2>
+          <h2 class="subtitle">
+            {{ currentUser.email }}
+          </h2>
         </div>
       </div>
     </div>

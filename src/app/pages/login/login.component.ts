@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private toHomeIfAlreadyLoggedIn(): void {
-    if (this.authService.isAuthenticated()) {
+    if (this.authService.userIsLoggedIn) {
       this.router.navigate(['/home']);
     }
   }

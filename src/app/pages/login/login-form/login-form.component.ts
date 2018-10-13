@@ -27,7 +27,6 @@ export class LoginFormComponent implements OnInit, OnChanges {
   showLoginError: boolean;
   @Input()
   loginInProgress: boolean;
-
   @Output()
   submittedLogin: EventEmitter<LoginValue> = new EventEmitter();
 
@@ -65,7 +64,7 @@ export class LoginFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['showLoginError'] && this.showLoginError) {
-      this.resetPasswordInput();
+      this.password.reset();
     }
   }
 
@@ -82,9 +81,5 @@ export class LoginFormComponent implements OnInit, OnChanges {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(1)]]
     });
-  }
-
-  private resetPasswordInput(): void {
-    this.password.reset();
   }
 }

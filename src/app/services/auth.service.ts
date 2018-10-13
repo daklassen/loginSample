@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Injectable, OnInit } from '@angular/core';
+import { of, Observable, BehaviorSubject } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 import { LoginValue } from '../models/login-value';
 
-const MOCKED_USER: LoginValue = {
-  email: 'test@online.de',
+const ONLY_VALID_USER: LoginValue = {
+  email: 'testuser@t.de',
   password: '123'
 };
 
@@ -14,26 +14,42 @@ const MOCKED_API_CALL_DELAY = 1500;
   providedIn: 'root'
 })
 export class AuthService {
-  constructor() {}
+  private userIsloggedIn = new BehaviorSubject<boolean>(false);
+
+  get userIsLoggedIn() {
+    return this.userIsloggedIn.getValue();
+  }
+
+  get userIsLoggedIn$() {
+    return this.userIsloggedIn.asObservable();
+  }
+
+  constructor() {
+    const userIsLoggedIn = localStorage.getItem('userIsLoggedIn') ? true : false;
+    this.userIsloggedIn.next(userIsLoggedIn);
+  }
 
   login(loginValue: LoginValue): Observable<boolean> {
     const loginValid =
-      loginValue.email === MOCKED_USER.email && loginValue.password === MOCKED_USER.password;
+      loginValue.email === ONLY_VALID_USER.email &&
+      loginValue.password === ONLY_VALID_USER.password;
 
     if (loginValid) {
-      localStorage.setItem('userIsLoggedIn', 'true');
+      return of(true).pipe(
+        delay(MOCKED_API_CALL_DELAY),
+        tap(() => {
+          localStorage.setItem('userIsLoggedIn', 'wannaBeJWT');
+          this.userIsloggedIn.next(true);
+        })
+      );
     }
 
-    return of(loginValid).pipe(delay(MOCKED_API_CALL_DELAY));
+    return of(false).pipe(delay(MOCKED_API_CALL_DELAY));
   }
 
   logout(): Observable<boolean> {
     localStorage.removeItem('userIsLoggedIn');
-    return of(true).pipe(delay(MOCKED_API_CALL_DELAY));
-  }
-
-  isAuthenticated(): boolean {
-    const userIsLoggedIn = localStorage.getItem('userIsLoggedIn') ? true : false;
-    return userIsLoggedIn;
+    this.userIsloggedIn.next(false);
+    return of(true);
   }
 }
