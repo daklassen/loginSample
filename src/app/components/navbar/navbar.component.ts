@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   userisLoggedIn$: Observable<boolean>;
+  logoutInProgress: boolean;
   mobileMenuVisible: boolean;
 
   private viewAlive: boolean;
@@ -27,9 +28,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
+    this.logoutInProgress = true;
     this.authService
       .logout()
-      .pipe(takeWhile(() => this.viewAlive))
+      .pipe(
+        takeWhile(() => this.viewAlive),
+        finalize(() => (this.logoutInProgress = false))
+      )
       .subscribe(logoutSuccess => {
         if (logoutSuccess) {
           this.router.navigate(['/login']);

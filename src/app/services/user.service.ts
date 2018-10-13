@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/login-value';
+import { User } from '../models/user';
 import { of, Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
 
 const MOCKED_USER: User = {
   firstName: 'Hans',

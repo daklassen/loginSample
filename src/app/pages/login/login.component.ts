@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.toHomeIfAlreadyLoggedIn();
     this.viewAlive = true;
+    this.toHomePageIfAlreadyLoggedIn();
   }
 
   ngOnDestroy(): void {
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
-  private toHomeIfAlreadyLoggedIn(): void {
+  private toHomePageIfAlreadyLoggedIn(): void {
     if (this.authService.userIsLoggedIn) {
       this.router.navigate(['/home']);
     }

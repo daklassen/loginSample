@@ -48,8 +48,12 @@ export class AuthService {
   }
 
   logout(): Observable<boolean> {
-    localStorage.removeItem('userIsLoggedIn');
-    this.userIsloggedIn.next(false);
-    return of(true);
+    return of(true).pipe(
+      delay(MOCKED_API_CALL_DELAY),
+      tap(() => {
+        localStorage.removeItem('userIsLoggedIn');
+        this.userIsloggedIn.next(false);
+      })
+    );
   }
 }
